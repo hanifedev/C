@@ -6,7 +6,6 @@ void insertionSort( int dizi[], int n )
 	int i;
 	int j;
 	int gecici;
-	int min;
 	for ( i = 1; i < SIZE; i++ )
 	{
 		gecici = dizi[i];
