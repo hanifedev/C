@@ -4,7 +4,7 @@
 
 int threadCount;
 void* hesapla( void* thread );
-void factoriyel( int sayi );
+void factoriyel( long sayi );
 
 int main( int argc, char* argv [] ) 
 {
@@ -38,12 +38,12 @@ void* hesapla( void* thread)
 	return NULL ;
 }
 
-void factoriyel( int sayi )
+void factoriyel( long sayi )
 {
-	int f = 1;
-	for ( int i = 1; i < sayi; i++ )
+	long f = 1;
+	for ( long i = 1; i < sayi; i++ )
 	{
 		f *= i;
 	}
-	printf( " %d! = %d \n", sayi, f );
+	printf( " %ld! = %ld \n", sayi, f );
 }
