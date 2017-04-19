@@ -40,11 +40,10 @@ void* hesapla( void* thread)
 
 void factoriyel( int sayi )
 {
-	int f = 1, sum=0;
+	int f = 1;
 	for ( int i = 1; i < sayi; i++ )
 	{
 		f *= i;
-		sum += f;
 	}
 	printf( " %d! = %d \n", sayi, f );
 }
