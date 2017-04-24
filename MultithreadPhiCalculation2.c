@@ -7,12 +7,13 @@
 #define NUMBEROFTERMS 4096  
 // işletim sistemi threadleri birbirinden ayırsın diye pthread_t kullanılır
 
-long globalSum[ NUMBEROFTHREADS ];
+double globalSum[ NUMBEROFTHREADS ];
 long threadController = 0;
 void* threadFunction( void* rank );
 
 int main( void )
 {
+	double sum = 0.0;
 	long threadRank;
 	double startTim, finishTim;
 	pthread_t* threadHandles = ( pthread_t* )malloc( NUMBEROFTHREADS * sizeof( pthread_t ) );
@@ -25,8 +26,12 @@ int main( void )
 	{
 		pthread_join( threadHandles[ threadRank ], NULL );
 	}
+	for( threadRank = 0; threadRank < NUMBEROFTHREADS; threadRank++ )
+	{
+		sum += globalSum[ threadRank ];
+	}
 	GET_TIME( finishTim );
-	printf( "value of phi: %f\n", 4.0*globalSum );
+	printf( "value of phi: %f\n", 4*sum );
 	printf( "total elapsed time: %f milliseconds\n", finishTim - startTim );
 	free( threadHandles );
 	return 0;
@@ -34,7 +39,6 @@ int main( void )
 
 void* threadFunction( void* rank )
 {
-	double sumInThread = 0.0;
 	long threadRank = ( long ) rank;
 	long termPerThread = NUMBEROFTERMS / NUMBEROFTHREADS;
 	long loverBound = threadRank * termPerThread;
@@ -51,9 +55,8 @@ void* threadFunction( void* rank )
 
 	for ( long index = loverBound; index < upperBound; index++ )
 	{
-		sumInThread = sumInThread + factor / ( 2.0 * index + 1 );
+		globalSum[ threadRank ] = globalSum[ threadRank ] + factor / ( 2.0 * index + 1 );
 		factor = factor * ( -1.0 );
-		globalSum[ index ] = sumInThread;
 	}
 	return NULL;
 }
