@@ -8,7 +8,6 @@
 // işletim sistemi threadleri birbirinden ayırsın diye pthread_t kullanılır
 
 double globalSum[ NUMBEROFTHREADS ];
-long threadController = 0;
 void* threadFunction( void* rank );
 
 int main( void )
